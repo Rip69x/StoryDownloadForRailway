@@ -1,7 +1,7 @@
 wget
 yt-dlp
 asyncio
-pyrogram
+kurigram
 user-agent
 youtube-search
 tgcrypto
@@ -10,4 +10,3 @@ uvloop
 pyromod
 python-dotenv
 kvsqlite
-kurigram
