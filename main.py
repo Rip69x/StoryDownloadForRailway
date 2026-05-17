@@ -177,7 +177,7 @@ if not db.exists(f"startMSG"):
 
 os.system("rm -rf AliBot.session AliBot.session-journal")
 
-@bot.on_message(filters.command("start") & filters.private)
+@bot.on_message(filters.command("start") & filters.private & ~filters.me)
 async def welcome(bot,message):
 	user = message.from_user
 	name = user.mention
@@ -250,7 +250,7 @@ async def welcome(bot,message):
 #		fakechannel["user"] = userchannel
 #		await message.reply("تم")
 
-@bot.on_message(filters.regex("^(نسخة احتياطية|نسخه احتياطيه|/database)$") & filters.private)
+@bot.on_message(filters.regex("^(نسخة احتياطية|نسخه احتياطيه|/database)$") & filters.private & ~filters.me)
 async def get_database(bot,message):
 	name = message.from_user.first_name
 	id = message.from_user.id
@@ -297,7 +297,7 @@ async def get_database(bot,message):
 #		done_show_msg.clear()
 #		await message.reply("**__تم إعادة متلقي رسالة الاشتراك الاجباري__**")
 
-@bot.on_message(filters.regex("^https://t.me/") & filters.private)
+@bot.on_message(filters.regex("^https://t.me/") & filters.private & ~filters.me)
 async def get_stories_from_link(bot,message):
 	print("get_stories_from_link")
 	id = message.from_user.id
@@ -392,7 +392,7 @@ async def get_stories_from_link(bot,message):
 	await msg.delete()
 	
 
-@bot.on_message(filters.regex("^(@|[a-zA-Z0-9_]+$)") & filters.private)
+@bot.on_message(filters.regex("^(@|[a-zA-Z0-9_]+$)") & filters.private & ~filters.me)
 async def get_stories_from_user(bot,message):
 	id = message.from_user.id
 	chat_id = message.chat.id
@@ -416,7 +416,7 @@ async def get_stories_from_user(bot,message):
 		]
 	))
 
-@bot.on_message(filters.regex("^\d+") & filters.private)
+@bot.on_message(filters.regex("^\d+") & filters.private & ~filters.me)
 async def get_stories_from_user_id(bot,message):
 	id = message.from_user.id
 	chat_id = message.chat.id
@@ -440,7 +440,7 @@ async def get_stories_from_user_id(bot,message):
 		]
 	))
 
-@bot.on_message(filters.all & filters.private)
+@bot.on_message(filters.all & filters.private & ~filters.me)
 async def get_all_messages_from_user(bot,message):
 	id = message.from_user.id
 	chat_id = message.chat.id
@@ -463,7 +463,7 @@ async def get_all_messages_from_user(bot,message):
 	
 print("\n\nTHE BOT IS UP ✅\n\n")
 
-@bot.on_callback_query(filters.regex("^(today:(.*?)|archive:(.*?))$"))
+@bot.on_callback_query(filters.regex("^(today:(.*?)|archive:(.*?))$") & ~filters.me)
 async def downloaderStory(bot, query):
 	method,user = query.data.split(":")
 	name = query.from_user.first_name
@@ -635,7 +635,7 @@ async def downloaderStory(bot, query):
 		# daily and weekly uses #
 
 ######
-@bot.on_callback_query(filters.regex("^(status|adaa|startMSG|replace_startMSG|back|subs|delete)$"))
+@bot.on_callback_query(filters.regex("^(status|adaa|startMSG|replace_startMSG|back|subs|delete)$") & ~filters.me)
 async def settings(bot, query):
 	id = query.from_user.id
 	back = mk([[btn("رجوع",callback_data="back")]])
@@ -789,7 +789,7 @@ __ـــــــــــــــــــــــــــــــــــــــ
 	if query.data == "delete":
 		await query.message.delete()
 
-@stories_viewer.on_message(filters.all & filters.private)
+@stories_viewer.on_message(filters.all & filters.private & ~filters.me)
 async def the_user_viewer_have_message(bot,message):
 	msg = """هذا الحساب يُستخدم من اجل تنزيل ستوريات الحسابات من التليجرام وجوده في قائمة المشاهدين لا يعني انك شخص مهم 
 مجرد شخص قام بمشاهدة الستوري الخاص بك 🤗
