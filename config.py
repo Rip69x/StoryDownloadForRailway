@@ -17,7 +17,7 @@ load_dotenv()
 # mustafa #
 
 database_name = getenv("DATABASE_NAME", "storymustafa")
-token = getenv("TOKEN", "6842035297:AAEPEyGlPr0UVUR2m5v-Q_Pe7zPc1LCU1kg")
+token = getenv("TOKEN", "6842035297:AAEWOeETZovSKKowwcc11LVo-cBKYts85Lg")
 ch_id = getenv("CH_ID", -1001787630863)
 dev = getenv("DEV", 2010789056)
 
