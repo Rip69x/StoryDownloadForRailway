@@ -1,5 +1,5 @@
 import requests,os,re,random,asyncio,json
-#import uvloop
+#import uvloop     g
 #uvloop.install()
 from pyrogram import Client, filters ,enums,idle
 from pyrogram.types import InlineKeyboardMarkup as mk, InlineKeyboardButton as btn
