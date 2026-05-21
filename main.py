@@ -5,8 +5,8 @@ from pyrogram import Client, filters ,enums,idle
 from pyrogram.types import InlineKeyboardMarkup as mk, InlineKeyboardButton as btn
 from pyrogram.errors import FloodWait
 from pyromod import listen # for ask
-from redisdb import Redisdb
-import redis
+#from redisdb import Redisdb
+#import redis
 #redis_db = redis.Redis(host='redis-18206.c281.us-east-1-2.ec2.cloud.redislabs.com',port=18206,password="fqftgxUlNx1jb9ZCeWm8Qfe5XDQmuUCM",decode_responses=True)
 from sqldb import db
 #db = Redisdb()
