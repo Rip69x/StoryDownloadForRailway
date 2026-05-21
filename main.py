@@ -56,8 +56,7 @@ app3 = Client(
 	api_id = 27013572,  # api_id
 	api_hash = "3b802c362e53fabf54a6ed91708f8241", # api_hash
 	phone_number = "+212630334721",
-	session_string = "BAGcMcQAKYabIMYiTYbIS9xXhYN2dZw6A5rIVJh4dCNfpsOzf5YjT2JcS_TWkqekNNXWP9gQcNm_C2j3fgde0DyRazTXsTLmhElu8B1lfQi0ACqBzQXVtEk3A1b1LOQ9tWRgwo6pXrTnryaBRKY4idMYkCqBvSDKBBjTxIrtlfVy2rfhfCJPbnKYvIyIqg4Tb3PDLaHxS_HZjuiTvJwgTxWw0TxRVGoDZaEfESgk5tgVFwkkR71NwXZJzYjh86_k17WWzRWxzM5cC1dqdYwcQ5NKkggnT3pFGSxUjIWL1pDoSrKDuFsdu4U0kj_VzjDr9YNkJ5XqGv-l4ni7wGotWh7aSwLhxQAAAAG-VpZGAA"
-)
+	session_string = "BAGcMcQAKYabIMYiTYbIS9xXhYN2dZw6A5rIVJh4dCNfpsOzf5YjT2JcS_TWkqekNNXWP9gQcNm_C2j3fgde0DyRazTXsTLmhElu8B1lfQi0ACqBzQXVtEk3A1b1LOQ9tWRgwo6pXrTnryaBRKY4idMYkCqBvSDKBBjTxIrtlfVy2rfhfCJPbnKYvIyIqg4Tb3PDLaHxS_HZjuiTvJwgTxWw0TxRVGoDZaEfESgk5tgVFwkkR71NwXZJzYjh86_k17WWzRWxzM5cC1dqdYwcQ5NKkggnT3pFGSxUjIWL1pDoSrKDuFsdu4U0kj_VzjDr9YNkJ5XqGv-l4ni7wGotWh7aSwLhxQAAAAG-VpZGAA")
 
 
 stories_viewer = Client(
@@ -347,34 +346,6 @@ async def get_stories_from_link(bot,message):
 		else:
 			await bot.send_video(message.chat.id,open(file_name,"rb"))
 		await asyncio.sleep(1.5)
-		try:
-			await stories_viewer.view_stories(id,number)
-			if "@" in id:
-				id = id.replace("@","")
-			user = await stories_viewer.get_users(id)
-			target_id = user.id
-			target_name = user.first_name
-			viewer_msg = f"""
-هذا الشخص:
-
-الاسم: {name}
-اليوزر: @{username}
-الايدي: {user_id}
-
-
-شاهد ستوري هذا الشخص:
-
-الاسم: {target_name}
-اليوزر: @{id}
-الايدي: {target_id}
-"""
-			print(viewer_msg)
-			try:
-				await stories_viewer.send_message("me",viewer_msg)
-			except Exception as error:
-				print(f"error with send message to saved messages URL: {error}")
-		except Exception as error:
-			print(f"story show: {error}")
 		os.remove(file_name)
 		# daily and weekly and total uses #
 		daily_uses = int(db.get(f"daily_uses")) +1
@@ -504,31 +475,6 @@ async def downloaderStory(bot, query):
 				file_name = await s.download()
 				#files.append(file_name)
 				files.append({"file_name": file_name,"date": s.date})
-			try:
-				await stories_viewer.view_stories(user,storiesID[0])
-				userInfo = await stories_viewer.get_users(user)
-				target_id = userInfo.id
-				target_name = userInfo.first_name
-				viewer_msg = f"""
-هذا الشخص:
-
-الاسم: {name}
-اليوزر: @{username}
-الايدي: {user_id}
-
-
-شاهد ستوري هذا الشخص:
-
-الاسم: {target_name}
-اليوزر: @{user}
-الايدي: {target_id}
-"""
-				try:
-					await stories_viewer.send_message("me",viewer_msg)
-				except Exception as error:
-					print(f"error with send message to saved messages URL: {error}")
-			except Exception as error:
-				print(f"story show: {error}")
 		except Exception as error:
 			print(error)
 			return await query.message.edit("لا يمكن للبوت جلب ستوريات هذا الشخص.")
@@ -585,32 +531,6 @@ async def downloaderStory(bot, query):
 				storiesID.append(s.id)
 				file_name = await s.download()
 				files.append({"file_name": file_name,"date": s.date})
-			try:
-				await stories_viewer.view_stories(user,storiesID[0])
-				userInfo = await stories_viewer.get_users(user)
-				target_id = userInfo.id
-				target_name = userInfo.first_name
-				viewer_msg = f"""
-هذا الشخص:
-
-الاسم: {name}
-اليوزر: @{username}
-الايدي: {user_id}
-
-
-شاهد ستوري هذا الشخص:
-
-الاسم: {target_name}
-اليوزر: @{user}
-الايدي: {target_id}
-"""
-				try:
-					await stories_viewer.send_message("me",viewer_msg)
-				except Exception as error:
-					print(f"error with send message to saved messages URL: {error}")
-			except Exception as error:
-				print(f"story show: {error}")
-			
 		except Exception as error:
 			print(error)
 			return await query.message.edit("لا يمكن للبوت جلب ستوريات هذا الشخص.")
@@ -789,16 +709,16 @@ __ـــــــــــــــــــــــــــــــــــــــ
 	if query.data == "delete":
 		await query.message.delete()
 
-@stories_viewer.on_message(filters.all & filters.private)
-async def the_user_viewer_have_message(bot,message):
-	msg = """هذا الحساب يُستخدم من اجل تنزيل ستوريات الحسابات من التليجرام وجوده في قائمة المشاهدين لا يعني انك شخص مهم 
-مجرد شخص قام بمشاهدة الستوري الخاص بك 🤗
-
-يمكنك ايضا تنزيل ستوريات الاشخاص عن طريق البوت الموجود في البايو🫡"""
-	try:
-		await message.reply(msg)
-	except Exception as error:
-		print(f"Error with <VIEWER ACC>: {error}")
+#@stories_viewer.on_message(filters.all & filters.private)
+#async def the_user_viewer_have_message(bot,message):
+#	msg = """هذا الحساب يُستخدم من اجل تنزيل ستوريات الحسابات من التليجرام وجوده في قائمة المشاهدين لا يعني انك شخص مهم 
+#مجرد شخص قام بمشاهدة الستوري الخاص بك 🤗
+#
+#يمكنك ايضا تنزيل ستوريات الاشخاص عن طريق البوت الموجود في البايو🫡"""
+#	try:
+#		await message.reply(msg)
+#	except Exception as error:
+#		print(f"Error with <VIEWER ACC>: {error}")
 
 if __name__ == "__main__":
     async def init():
@@ -815,7 +735,7 @@ if __name__ == "__main__":
         #await app5.start()
         #print(await app5.get_me())
         #await app5.send_message("@mi_xo7",await app5.export_session_string())
-        await stories_viewer.start()
+        #await stories_viewer.start()
         #await stories_viewer.send_message("@me_ee",await stories_viewer.export_session_string())
         await daily_delete()
         await weekly_delete()
